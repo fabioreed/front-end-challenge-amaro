@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { CartContext } from '../../providers/CartContext'
 import { BsChevronCompactLeft } from 'react-icons/bs'
-import { BackgroundModalContainer, CardContainer, CartList, ColorAndSize, EmptyCart, ImageContainer, InfoProductOnCart, QuantityAndProductPrice, TitleAndCloseBtnCard, TitleAndCloseBtnContainer, TotalPrice } from './style'
+import { BackgroundModalContainer, CardContainer, CartList, ColorAndSize, EmptyCart, ImageContainer, InfoProductOnCart, MainContainer, QuantityAndProductPrice, TitleAndCloseBtnCard, TitleAndCloseBtnContainer, TotalPrice } from './style'
 import { ICartProduct } from '../../providers/@types'
 
 const Cart = () => {
@@ -55,53 +55,55 @@ const Cart = () => {
   return (
     <>
       <BackgroundModalContainer>
-        <CartList>
+        <MainContainer>
           <TitleAndCloseBtnContainer>
             <span onClick={() => setModal(!modal)}><BsChevronCompactLeft /></span>
             <h4>Sacola ({currentSale.length})</h4>
           </TitleAndCloseBtnContainer>
-          
-          {currentSale.length === 0 ? (
-              <EmptyCart>
-                Nenhuma item no carrinho...
-              </EmptyCart>
-            )
-            :  
-            currentSale.map((item, index) => (
-            <CardContainer key={index}>
-              <ImageContainer>
-                <img src={item.image} alt={item.name} />
-              </ImageContainer>
-              <InfoProductOnCart>
-                <TitleAndCloseBtnCard>
-                  <h4>{item.name}</h4>
-                  <button onClick={() => removeToCart(item)}>X</button>
-                </TitleAndCloseBtnCard>
-                <ColorAndSize>
-                  <span>{item.color}</span>
-                  <span>Tamanho P</span>
-                </ColorAndSize>
-                <QuantityAndProductPrice>
-                  <div>
-                    <span onClick={() => handleDecreaseQuantity(item)}>-</span>
-                    <span>{item.quantity}</span>
-                    <span onClick={() => handleIncreaseQuantity(item)}>+</span>
-                  </div>
-                  <span>
-                    {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                    }).format(convertPriceStringToNumber(item.actual_price) * item.quantity)}
-                  </span>
-                </QuantityAndProductPrice>
-              </InfoProductOnCart>
-            </CardContainer>
-          ))}
+          <CartList>
+            
+            {currentSale.length === 0 ? (
+                <EmptyCart>
+                  Nenhuma item no carrinho...
+                </EmptyCart>
+              )
+              :  
+              currentSale.map((item, index) => (
+              <CardContainer key={index}>
+                <ImageContainer>
+                  <img src={item.image} alt={item.name} />
+                </ImageContainer>
+                <InfoProductOnCart>
+                  <TitleAndCloseBtnCard>
+                    <h4>{item.name}</h4>
+                    <button onClick={() => removeToCart(item)}>X</button>
+                  </TitleAndCloseBtnCard>
+                  <ColorAndSize>
+                    <span>{item.color}</span>
+                    <span>Tamanho P</span>
+                  </ColorAndSize>
+                  <QuantityAndProductPrice>
+                    <div>
+                      <span onClick={() => handleDecreaseQuantity(item)}>-</span>
+                      <span>{item.quantity}</span>
+                      <span onClick={() => handleIncreaseQuantity(item)}>+</span>
+                    </div>
+                    <span>
+                      {new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                      }).format(convertPriceStringToNumber(item.actual_price) * item.quantity)}
+                    </span>
+                  </QuantityAndProductPrice>
+                </InfoProductOnCart>
+              </CardContainer>
+            ))}
+          </CartList>
           <TotalPrice>
             <span>Total a pagar</span>
             <span>{Number(calculateTotalPrice()).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
           </TotalPrice>
-        </CartList>
+        </MainContainer>
       </BackgroundModalContainer>
     </>
   )

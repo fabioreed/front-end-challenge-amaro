@@ -30,6 +30,19 @@ const slideInRightToLeft = keyframes`
   }
 `
 
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  animation: ${slideInRightToLeft} .4s ease;
+
+  @media (max-width: 768px) {
+    height: 80vh;
+    width: 100%;
+  }
+`
+
 export const CartList = styled.ul`
   background: var(--white);
 
@@ -38,20 +51,21 @@ export const CartList = styled.ul`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: .8rem;
-
-  border-radius: 6px;
 
   overflow-y: auto;
 
   position: relative;
 
-  animation: ${slideInRightToLeft} 0.3s ease;
+  padding-top: .7rem;
 
   @media (min-width: 768px) {
-    width: 33%;
+    width: 460px;
     height: 100vh;
+
+    padding-top: 1.2rem;
+
+    padding-right: 1.5rem;
   }
 `
 
@@ -258,7 +272,7 @@ export const TotalPrice = styled.div`
   bottom: 0px;
   right: 0;
   @media (min-width: 768px) {
-
+    bottom: 0px;
     z-index: 10;
 
     > span {
