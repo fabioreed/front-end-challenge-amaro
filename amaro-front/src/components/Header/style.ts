@@ -31,6 +31,17 @@ export const LogoContainer = styled.figure`
 export const ListContainer = styled.ul`
   display: flex;
   gap: 1rem;
+
+  > input {
+    padding: .4rem 1rem;
+    border-radius: 8px;
+
+    border: 1px solid var(--light-gray);
+
+    &::placeholder {
+      font-size: .7rem;
+    }
+  }
 `
 
 export const CartLink = styled.button`

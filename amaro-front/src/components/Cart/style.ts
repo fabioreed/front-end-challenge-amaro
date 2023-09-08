@@ -266,3 +266,13 @@ export const TotalPrice = styled.div`
     }
   }
 `
+
+export const EmptyCart = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--gray);
+  font-style: italic;
+  font-weight: 300;
+`

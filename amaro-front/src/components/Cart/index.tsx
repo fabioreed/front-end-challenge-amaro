@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { CartContext } from '../../providers/CartContext'
 import { BsChevronCompactLeft } from 'react-icons/bs'
-import { BackgroundModalContainer, CardContainer, CartList, ColorAndSize, ImageContainer, InfoProductOnCart, QuantityAndProductPrice, TitleAndCloseBtnCard, TitleAndCloseBtnContainer, TotalPrice } from './style'
+import { BackgroundModalContainer, CardContainer, CartList, ColorAndSize, EmptyCart, ImageContainer, InfoProductOnCart, QuantityAndProductPrice, TitleAndCloseBtnCard, TitleAndCloseBtnContainer, TotalPrice } from './style'
 import { ICartProduct } from '../../providers/@types'
 
 const Cart = () => {
@@ -60,7 +60,14 @@ const Cart = () => {
             <span onClick={() => setModal(!modal)}><BsChevronCompactLeft /></span>
             <h4>Sacola ({currentSale.length})</h4>
           </TitleAndCloseBtnContainer>
-          {currentSale.map((item, index) => (
+          
+          {currentSale.length === 0 ? (
+              <EmptyCart>
+                Nenhuma item no carrinho...
+              </EmptyCart>
+            )
+            :  
+            currentSale.map((item, index) => (
             <CardContainer key={index}>
               <ImageContainer>
                 <img src={item.image} alt={item.name} />

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { IProduct } from '../../providers/@types'
 
 const Card = () => {
-  const { addToCart } = useContext(CartContext)
+  const { addToCart, filteredProducts } = useContext(CartContext)
 
   const convertProductToCartProduct = (product: IProduct) => {
     // Crie um objeto ICartProduct com base no objeto de produto existente
@@ -18,24 +18,45 @@ const Card = () => {
 
   return (
     <>
-      {products.map((product) => (
-        <CardAds key={uuidv4()}>
-          <FigureImg>
-            <img src={product.image} alt={product.name} />
-          </FigureImg>
-          <InfoCard>
-            <TitleAndPriceTag>
-              <h4>{product.name}</h4>
-              <span>{product.actual_price}</span>
-            </TitleAndPriceTag>
-            <Prices>
-              <span>{product.on_sale}</span>
-              <span>{product.installments}</span>
-            </Prices>
-            <button onClick={() => addToCart(convertProductToCartProduct(product))}>Add to Cart</button>
-          </InfoCard>
-        </CardAds>
-      ))}
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((product) => (
+          <CardAds key={uuidv4()}>
+            <FigureImg>
+              <img src={product.image} alt={product.name} />
+            </FigureImg>
+            <InfoCard>
+              <TitleAndPriceTag>
+                <h4>{product.name}</h4>
+                <span>{product.actual_price}</span>
+              </TitleAndPriceTag>
+              <Prices>
+                <span>{product.on_sale}</span>
+                <span>{product.installments}</span>
+              </Prices>
+              <button onClick={() => addToCart(convertProductToCartProduct(product))}>Add to Cart</button>
+            </InfoCard>
+          </CardAds>
+        ))
+      ) : (
+        products.map((product) => (
+          <CardAds key={uuidv4()}>
+            <FigureImg>
+              <img src={product.image} alt={product.name} />
+            </FigureImg>
+            <InfoCard>
+              <TitleAndPriceTag>
+                <h4>{product.name}</h4>
+                <span>{product.actual_price}</span>
+              </TitleAndPriceTag>
+              <Prices>
+                <span>{product.on_sale}</span>
+                <span>{product.installments}</span>
+              </Prices>
+              <button onClick={() => addToCart(convertProductToCartProduct(product))}>Add to Cart</button>
+            </InfoCard>
+          </CardAds>
+        ))
+      )}
     </>
   )
 }

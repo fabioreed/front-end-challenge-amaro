@@ -11,6 +11,10 @@ export interface ICartContext {
   setModal: React.Dispatch<React.SetStateAction<boolean>>
   convertPriceStringToNumber: (priceString: string) => number
   clearCart: () => void
+  search: string
+  setSearch: React.Dispatch<React.SetStateAction<string>>
+  filteredProducts: IProduct[]
+  setFilteredProducts: React.Dispatch<React.SetStateAction<IProduct[]>>
 }
 
 export interface IDefaultProviderProps {

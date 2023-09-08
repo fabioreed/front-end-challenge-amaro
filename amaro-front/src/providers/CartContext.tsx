@@ -1,6 +1,7 @@
-import { createContext, useState, useEffect } from "react";
-import { ICartContext, ICartProduct, IDefaultProviderProps, IProduct } from "./@types";
-import { toast } from "react-toastify";
+import { createContext, useState, useEffect } from "react"
+import { ICartContext, ICartProduct, IDefaultProviderProps, IProduct } from "./@types"
+import { toast } from "react-toastify"
+import { products } from '../../products.json'
 
 export const CartContext = createContext({} as ICartContext)
 
@@ -9,6 +10,8 @@ export const CartProvider = ({ children }: IDefaultProviderProps) => {
   const [currentSale, setCurrentSale] = useState<ICartProduct[]>([])
   const [cartTotal, setCartTotal] = useState<number | string>(0)
   const [modal, setModal] = useState(false)
+  const [search, setSearch] = useState('')
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([])
 
   useEffect(() => {
     const savedCart = localStorage.getItem('currentSale')
@@ -16,6 +19,12 @@ export const CartProvider = ({ children }: IDefaultProviderProps) => {
       setCurrentSale(JSON.parse(savedCart))
     }
   }, [])
+
+  useEffect(() => {
+    setFilteredProducts(products.filter(item => item.name.toLowerCase().includes(search.toLowerCase())))
+
+    console.log(filteredProducts)
+  }, [product, search])
 
   const addToCart = (item: IProduct | ICartProduct) => {
     const existingItemIndex = currentSale.findIndex((cartItem) => cartItem.name === item.name)
@@ -84,7 +93,11 @@ export const CartProvider = ({ children }: IDefaultProviderProps) => {
       modal,
       setModal,
       convertPriceStringToNumber,
-      clearCart
+      clearCart,
+      search,
+      setSearch,
+      filteredProducts,
+      setFilteredProducts
     }}>
       {children}
     </CartContext.Provider>
