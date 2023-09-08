@@ -10,6 +10,7 @@ export interface ICartContext {
   modal: boolean
   setModal: React.Dispatch<React.SetStateAction<boolean>>
   convertPriceStringToNumber: (priceString: string) => number
+  clearCart: () => void
 }
 
 export interface IDefaultProviderProps {

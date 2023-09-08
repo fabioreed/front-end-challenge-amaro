@@ -9,11 +9,13 @@ export const CardList = styled.ul`
   padding: .7rem 1rem;
 
   @media (min-width: 768px) {
+    gap: 1rem;
+
     overflow: hidden;
 
     flex-wrap: wrap;
 
-    padding: 2rem 6rem;
+    padding: 2rem 5rem;
 
     justify-content: space-between;
   }

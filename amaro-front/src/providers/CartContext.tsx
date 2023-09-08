@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { ICartContext, ICartProduct, IDefaultProviderProps, IProduct } from "./@types";
+import { toast } from "react-toastify";
 
 export const CartContext = createContext({} as ICartContext)
 
@@ -9,19 +10,33 @@ export const CartProvider = ({ children }: IDefaultProviderProps) => {
   const [cartTotal, setCartTotal] = useState<number | string>(0)
   const [modal, setModal] = useState(false)
 
+  useEffect(() => {
+    const savedCart = localStorage.getItem('currentSale')
+    if (savedCart) {
+      setCurrentSale(JSON.parse(savedCart))
+    }
+  }, [])
+
   const addToCart = (item: IProduct | ICartProduct) => {
     const existingItemIndex = currentSale.findIndex((cartItem) => cartItem.name === item.name)
+    let updatedCart: ICartProduct[]
+
     if (existingItemIndex !== -1) {
       // Se o item já existe no carrinho, atualize apenas a quantidade
-      const updatedCart: any = [...currentSale]
-
+      updatedCart = [...currentSale]
       updatedCart[existingItemIndex].quantity++
-
-      setCurrentSale(updatedCart)
     } else {
       // Caso contrário, adicione o item ao carrinho com quantidade 1
-      setCurrentSale([...currentSale, { ...item, quantity: 1 }]);
+      updatedCart = [...currentSale, { ...item, quantity: 1 }]
+
+      toast.success('Produto adicionado!')
     }
+
+    // Atualize o estado com o novo carrinho
+    setCurrentSale(updatedCart)
+
+    // Atualize o localStorage com o novo carrinho
+    localStorage.setItem("currentSale", JSON.stringify(updatedCart))
   }
 
   const removeToCart = (itemProduct: ICartProduct) => {
@@ -29,9 +44,11 @@ export const CartProvider = ({ children }: IDefaultProviderProps) => {
       return item.name !== itemProduct.name
     })
 
+    localStorage.setItem('currentSale', JSON.stringify(remove))
+
     setCurrentSale(remove)
 
-    console.log('Produto removido!')
+    toast.success('Produto removido!')
   }
 
   const convertPriceStringToNumber = (priceString: string) => {
@@ -48,6 +65,12 @@ export const CartProvider = ({ children }: IDefaultProviderProps) => {
     setCartTotal(saleTotalValue)
   }, [currentSale])
 
+  const clearCart = () => {
+    setCurrentSale([])
+
+    localStorage.removeItem('currentSale')
+  }
+
   return (
     <CartContext.Provider value={{
       addToCart,
@@ -60,7 +83,8 @@ export const CartProvider = ({ children }: IDefaultProviderProps) => {
       setCartTotal,
       modal,
       setModal,
-      convertPriceStringToNumber
+      convertPriceStringToNumber,
+      clearCart
     }}>
       {children}
     </CartContext.Provider>

@@ -6,7 +6,7 @@ import { ICartProduct } from '../../providers/@types'
 
 const Cart = () => {
   const { currentSale, setModal, modal, removeToCart, convertPriceStringToNumber, setCurrentSale, setCartTotal } = useContext(CartContext)
-
+  
   const calculateTotalPrice = () => {
     const total = currentSale.reduce((acc, item) => {
       const actualPriceAsNumber = convertPriceStringToNumber(item.actual_price)
@@ -15,7 +15,7 @@ const Cart = () => {
         return acc + actualPriceAsNumber * item.quantity;
       } else {
         // Lide com casos em que a conversão falhou (por exemplo, log de erro ou tratamento adequado)
-        console.error(`Erro na conversão de preço: ${item.actual_price}`);
+        console.error(`Erro na conversão de preço: ${item.actual_price}`)
         return acc
       }
     }, 0)
@@ -25,6 +25,7 @@ const Cart = () => {
 
   useEffect(() => {
     const saleTotalValue = calculateTotalPrice()
+
     setCartTotal(saleTotalValue)
   }, [currentSale])
 
@@ -79,14 +80,19 @@ const Cart = () => {
                     <span>{item.quantity}</span>
                     <span onClick={() => handleIncreaseQuantity(item)}>+</span>
                   </div>
-                  <span>R$ {convertPriceStringToNumber(item.actual_price) * item.quantity}</span>
+                  <span>
+                    {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                    }).format(convertPriceStringToNumber(item.actual_price) * item.quantity)}
+                  </span>
                 </QuantityAndProductPrice>
               </InfoProductOnCart>
             </CardContainer>
           ))}
           <TotalPrice>
             <span>Total a pagar</span>
-            <span>R$ {Number(calculateTotalPrice()).toFixed(2)}</span>
+            <span>{Number(calculateTotalPrice()).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
           </TotalPrice>
         </CartList>
       </BackgroundModalContainer>

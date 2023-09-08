@@ -1,9 +1,9 @@
-import { useContext } from "react"
+import { useContext } from 'react'
 import { products } from '../../../products.json'
 import { CartContext } from '../../providers/CartContext'
 import { CardAds, FigureImg, InfoCard, Prices, TitleAndPriceTag } from './style'
 import { v4 as uuidv4 } from 'uuid'
-import { IProduct } from "../../providers/@types"
+import { IProduct } from '../../providers/@types'
 
 const Card = () => {
   const { addToCart } = useContext(CartContext)
@@ -32,8 +32,8 @@ const Card = () => {
               <span>{product.on_sale}</span>
               <span>{product.installments}</span>
             </Prices>
+            <button onClick={() => addToCart(convertProductToCartProduct(product))}>Add to Cart</button>
           </InfoCard>
-          <button onClick={() => addToCart(convertProductToCartProduct(product))}>Add to Cart</button>
         </CardAds>
       ))}
     </>

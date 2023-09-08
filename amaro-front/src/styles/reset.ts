@@ -6,7 +6,7 @@ const Reset = createGlobalStyle`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Open sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   a {

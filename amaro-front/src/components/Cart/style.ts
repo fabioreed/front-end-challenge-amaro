@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 
 export const BackgroundModalContainer = styled.section`
   position: fixed;
@@ -13,52 +13,58 @@ export const BackgroundModalContainer = styled.section`
   justify-content: center;
   align-items: center;
 
-  padding: 1rem;
+  padding: .3rem;
 
   @media (min-width: 768px) {
     justify-content: flex-end;
     align-items: flex-end;
+  }
+`
 
-    padding: 0;
+const slideInRightToLeft = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
   }
 `
 
 export const CartList = styled.ul`
-  padding: 1rem;
-
   background: var(--white);
 
-  width: 95%;
-  height: 90vh;
+  width: 100%;
+  height: 98vh;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: .8rem;
 
   border-radius: 6px;
 
   overflow-y: auto;
 
+  position: relative;
+
+  animation: ${slideInRightToLeft} 0.3s ease;
+
   @media (min-width: 768px) {
     width: 33%;
     height: 100vh;
-
-    padding: 1rem;
-
-    padding-right: 2rem;
   }
 `
 
 export const CardContainer = styled.li`
   display: flex;
 
-  border: 1px solid var(--light-gray);
+  border: 1px solid rgba(0, 0, 0, 0.09);
 
   border-radius: 6px;
 
-  @media (min-width: 768px) {
-    gap: 1rem;
+  position: relative;
 
+  @media (min-width: 768px) {
     justify-content: space-between;
   }
 `
@@ -67,8 +73,28 @@ export const TitleAndCloseBtnContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
+  padding: 1rem;
+
+  position: sticky;
+  top: 0;
+
+  background: var(--white);
+
+  z-index: 10;
+
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+
   > span {
     cursor: pointer;
+  }
+
+  > h4 {
+    font-size: .7rem;
+    color: var(--gray);
+  }
+
+  @media (min-width: 768px) {
+    padding: 1.7rem 1.2rem;
   }
 `
 
@@ -76,9 +102,6 @@ export const TitleAndCloseBtnCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: .3rem; // Necessario?
-
-  position: relative;
 
   > h4 {
     color: var(--gray);
@@ -106,11 +129,16 @@ export const TitleAndCloseBtnCard = styled.div`
     transition: .2s ease;
 
     position: absolute;
-    top: -19px;
-    right: -19px;
+    right: 4px;
+    top: -7px;
 
     &:hover {
       background: var(--light-gray);
+    }
+    
+    @media (min-width: 768px) {
+      top: -6px;
+      right: 4px;
     }
   }
 `
@@ -124,7 +152,7 @@ export const ImageContainer = styled.figure`
 
   @media (min-width: 768px) {
     > img {
-      width:95px;
+      width: 105px;
 
       object-fit: cover;
 
@@ -140,7 +168,9 @@ export const InfoProductOnCart = styled.div`
   
   @media (min-width: 768px) {
     gap: 1rem;
-    
+
+    width: 100%;
+
     padding: .8rem;
   }
   `
@@ -212,18 +242,27 @@ export const TotalPrice = styled.div`
 
   bottom: 0;
 
-  background: var(--white);
+  background: var(--black);
+
+  color: var(--white);
 
   width: 100%;
+  padding: 2rem;
 
   > span {
-    font-size: .8rem;
-    font-weight: 700;
+    font-size: .6rem;
+    font-weight: 600;
   }
 
+  position: sticky;
+  bottom: 0px;
+  right: 0;
   @media (min-width: 768px) {
+
+    z-index: 10;
+
     > span {
-      font-size: 1rem;
+      font-size: .8rem;
     }
   }
 `
