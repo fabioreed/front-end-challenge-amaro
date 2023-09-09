@@ -2,16 +2,19 @@ import { styled } from "styled-components";
 
 export const MainHeaderContainer = styled.main`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
+  flex-direction: column;
+  gap: 1rem;
+  
   padding: 1rem;
 
   width: 100%;
-
+  
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-
+  
   @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 2rem 6em;
   }
 `
