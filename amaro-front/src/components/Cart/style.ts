@@ -37,6 +37,8 @@ export const MainContainer = styled.div`
 
   animation: ${slideInRightToLeft} .4s ease;
 
+  z-index: 1000;
+
   @media (max-width: 768px) {
     height: 80vh;
     width: 100%;
@@ -48,6 +50,7 @@ export const CartList = styled.ul`
 
   width: 100%;
   height: 98vh;
+  /* height: auto; */
 
   display: flex;
   flex-direction: column;
@@ -61,7 +64,7 @@ export const CartList = styled.ul`
 
   @media (min-width: 768px) {
     width: 460px;
-    height: 100vh;
+    height: 470px;
 
     padding-top: 1.2rem;
 
